@@ -1,0 +1,26 @@
+# File này TỰ ĐỘNG được Docker Compose merge vào docker-compose.yml khi chạy `docker-compose up`
+# Dùng để override sang môi trường development (hot-reload, mount code, dùng Vite dev server)
+version: "3.9"
+
+services:
+  backend:
+    build:
+      target: development
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  frontend:
+    build:
+      target: development
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
