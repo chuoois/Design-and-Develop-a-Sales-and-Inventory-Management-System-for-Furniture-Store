@@ -1,53 +1,55 @@
-// Controller xử lý logic cho API user: tạo user + upload avatar + gửi mail chào mừng
-const userModel = require('../models/userModel');
-const { sendWelcomeEmail } = require('../services/mailService');
-const { isValidEmail } = require('../utils/validators');
+const bcrypt = require('bcryptjs');
+const {
+  createUserAccount,
+  findUserAccountByEmail,
+} = require('../models/userAccount.model');
+const { findUserRoleByCode } = require('../models/userRole.model');
+const { validateRegistrationInput } = require('../utils/validators');
 
-// POST /api/users
-// Luồng: nhận form-data (name, email, avatar file) -> multer upload lên Cloudinary
-// -> lưu thông tin + url ảnh vào MySQL -> gửi mail chào mừng
-async function createUser(req, res) {
+function isDuplicateEmailError(error) {
+  return error.name === 'SequelizeUniqueConstraintError' || error.original?.code === 'ER_DUP_ENTRY';
+}
+
+async function registerUser(req, res) {
+  const validationError = validateRegistrationInput(req.body);
+  if (validationError) {
+    return res.status(400).json({ message: validationError });
+  }
+
+  const email = req.body.email.trim().toLowerCase();
+  const fullName = req.body.fullName.trim();
+
   try {
-    const { name, email } = req.body;
-
-    if (!name || !email) {
-      return res.status(400).json({ message: 'Thiếu name hoặc email' });
+    const existingAccount = await findUserAccountByEmail(email);
+    if (existingAccount) {
+      return res.status(409).json({ message: 'Email đã được sử dụng' });
     }
 
-    if (!isValidEmail(email)) {
-      return res.status(400).json({ message: 'Email không hợp lệ' });
+    const customerRole = await findUserRoleByCode('CUSTOMER');
+    if (!customerRole) {
+      return res.status(500).json({ message: 'Chưa cấu hình vai trò CUSTOMER' });
     }
 
-    const existing = await userModel.findUserByEmail(email);
-    if (existing) {
-      return res.status(409).json({ message: 'Email đã tồn tại' });
+    const passwordHash = await bcrypt.hash(req.body.password, 10);
+    const user = await createUserAccount({
+      roleId: customerRole.role_id,
+      email,
+      passwordHash,
+      fullName,
+      createBy: 'SYSTEM',
+    });
+
+    return res.status(201).json({
+      message: 'Đăng ký tài khoản thành công',
+      user,
+    });
+  } catch (error) {
+    if (isDuplicateEmailError(error)) {
+      return res.status(409).json({ message: 'Email đã được sử dụng' });
     }
 
-    // req.file được multer-storage-cloudinary gắn vào sau khi upload thành công
-    const avatarUrl = req.file ? req.file.path : null;
-
-    const user = await userModel.createUser({ name, email, avatarUrl });
-
-    // Gửi mail chào mừng (không chặn response nếu gửi mail lỗi)
-    sendWelcomeEmail(email, name).catch((err) =>
-      console.error('Gửi mail thất bại:', err.message)
-    );
-
-    return res.status(201).json({ message: 'Tạo user thành công', user });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: 'Lỗi server', error: err.message });
+    return res.status(500).json({ message: 'Không thể tạo tài khoản' });
   }
 }
 
-async function listUsers(req, res) {
-  try {
-    const users = await userModel.getAllUsers();
-    return res.json({ users });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: 'Lỗi server', error: err.message });
-  }
-}
-
-module.exports = { createUser, listUsers };
+module.exports = { registerUser };
