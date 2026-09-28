@@ -1,21 +1,24 @@
-const { isValidEmail } = require('../src/utils/validators');
+const { validateRegistrationInput } = require('../src/utils/validators');
 
-describe('validators - isValidEmail', () => {
-  test('trả về true với email hợp lệ', () => {
-    expect(isValidEmail('test@example.com')).toBe(true);
-    expect(isValidEmail('user.name+tag@sub.domain.com')).toBe(true);
+describe('validateRegistrationInput', () => {
+  test('chấp nhận dữ liệu hợp lệ', () => {
+    expect(validateRegistrationInput({
+      email: 'person@example.com',
+      password: 'password123',
+      fullName: 'Test User',
+    })).toBeNull();
   });
 
-  test('trả về false với email không hợp lệ', () => {
-    expect(isValidEmail('not-an-email')).toBe(false);
-    expect(isValidEmail('missing@domain')).toBe(false);
-    expect(isValidEmail('@nodomain.com')).toBe(false);
+  test('từ chối thiếu email', () => {
+    expect(validateRegistrationInput({ password: 'password123', fullName: 'Test User' }))
+      .toBe('Email là bắt buộc');
   });
 
-  test('trả về false khi input rỗng hoặc không phải string', () => {
-    expect(isValidEmail('')).toBe(false);
-    expect(isValidEmail(null)).toBe(false);
-    expect(isValidEmail(undefined)).toBe(false);
-    expect(isValidEmail(12345)).toBe(false);
+  test('từ chối mật khẩu ngắn', () => {
+    expect(validateRegistrationInput({
+      email: 'person@example.com',
+      password: 'short',
+      fullName: 'Test User',
+    })).toBe('Mật khẩu phải có ít nhất 8 ký tự');
   });
 });

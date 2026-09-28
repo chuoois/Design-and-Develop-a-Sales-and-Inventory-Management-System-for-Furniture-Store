@@ -1,12 +1,8 @@
 const express = require('express');
+const { registerUser } = require('../controllers/userController');
+
 const router = express.Router();
-const upload = require('../middlewares/uploadMiddleware');
-const userController = require('../controllers/userController');
 
-// POST /api/users - tạo user mới, upload avatar (field name: "avatar")
-router.post('/', upload.single('avatar'), userController.createUser);
-
-// GET /api/users - lấy danh sách user
-router.get('/', userController.listUsers);
+router.post('/register', registerUser);
 
 module.exports = router;
