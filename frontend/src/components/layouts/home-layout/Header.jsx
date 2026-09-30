@@ -16,13 +16,9 @@ const topLinks = [
 ];
 
 const navigation = [
-  { label: 'Sản phẩm mới', href: '#san-pham-moi' },
   { label: 'Sản phẩm', href: '#san-pham' },
   { label: 'Phòng', href: '#phong' },
-  { label: 'Bộ sưu tập', href: '#bo-suu-tap' },
-  { label: 'Thương hiệu', href: '#thuong-hieu' },
-  { label: 'Thiết kế nội thất', href: '#thiet-ke-noi-that' },
-  { label: 'Góc cảm hứng', href: '#goc-cam-hung' },
+  { label: 'Thiết kế nội thất', href: 'interior-design' }
 ];
 
 const IconButton = ({ label, icon: Icon }) => (
@@ -99,7 +95,7 @@ export const Header = () => {
         </button>
 
         <a
-          href="#trang-chu"
+          href="/home"
           aria-label="Góc Nhà, về trang chủ"
           className="shrink-0 border border-stone-500 px-2.5 py-1 font-sans text-[34px] font-light leading-none tracking-tight text-stone-500"
         >

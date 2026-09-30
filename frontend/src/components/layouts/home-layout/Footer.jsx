@@ -46,7 +46,7 @@ export const Footer = () => {
           href="#cua-hang"
           className="mt-8 inline-flex h-[33px] items-center gap-2 border border-white px-4 text-xs font-bold transition-colors hover:bg-white hover:text-[#232226] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         >
-          Tìm cửa hàng
+          Tìm sản phẩm tại cửa hàng
           <ChevronRight className="size-3.5" strokeWidth={2.5} aria-hidden="true" />
         </a>
       </section>
