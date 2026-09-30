@@ -1,11 +1,12 @@
-import CreateUserPage from './pages/CreateUserPage';
+import { RouterProvider } from "react-router-dom";
+import { router } from "./apps/AppRouter";
+import { Toaster } from "react-hot-toast";
 
-function App() {
+export const App = () => {
   return (
-    <div>
-      <CreateUserPage />
-    </div>
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      <RouterProvider router={router} />
+    </>
   );
-}
-
-export default App;
+};

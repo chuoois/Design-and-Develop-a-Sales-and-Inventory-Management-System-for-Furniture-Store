@@ -30,6 +30,7 @@ frontend/src/
 ├── services/      # api.js (axios instance), mọi lời gọi HTTP tập trung ở đây
 ├── hooks/         # custom hooks dùng chung
 ├── context/       # React Context (auth, theme...)
+├── app/           # Router (ownerrouter...)
 └── tests/         # test file đặt ở đây, không rải rác trong components/pages
 ```
 
