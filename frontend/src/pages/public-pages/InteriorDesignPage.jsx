@@ -6,29 +6,29 @@ const PHONE = '0969011078';
 
 const hero = {
   title: 'Thiết kế nội thất',
-  text: 'Hẹn gặp ngay đội ngũ chuyên nghiệp và giàu kinh nghiệm từ Góc Nhà để được tư vấn những giải pháp hoàn thiện nội thất cho ngôi nhà của bạn.',
+  text: 'Liên hệ trực tiếp với xưởng Góc Nhà để được tư vấn giải pháp nội thất phù hợp với ngôi nhà và ngân sách của bạn.',
   image: '',
 };
 
 const reasons = [
   {
     title: 'Thực tế giống với 3D',
-    heading: 'Trải nghiệm thực tế trước khi đặt hàng',
-    text: 'Bạn thường gặp tình trạng bản phác thảo 3D khác xa với công trình thực tế? Đừng lo, tại Góc Nhà, bạn hoàn toàn yên tâm bởi chất lượng luôn được bảo đảm từ đội ngũ tay nghề cao với thương hiệu hơn 23 năm tuổi. Đặc biệt, trên hệ thống 10 cửa hàng, bạn có thể dễ dàng tham khảo không gian và sản phẩm thực tế trước khi đặt hàng.',
+    heading: 'Hình dung rõ trước khi thi công',
+    text: 'Bản vẽ 3D được dựng dựa trên số đo thực tế tại nhà bạn. Chúng tôi trao đổi cụ thể về vật liệu và kích thước để thành phẩm sát với bản thiết kế đã duyệt.',
     image: '',
     tone: 'bg-[#232226]',
   },
   {
     title: 'Luôn cá nhân hóa',
-    heading: 'Đa dạng thiết kế',
-    text: 'Bạn thường bắt gặp nhiều mẫu thiết kế giống nhau khi vô tình đến một địa điểm nào đó? Bạn muốn có một mẫu thiết kế đặc biệt dành riêng cho căn hộ của mình? Hãy nói cho Góc Nhà biết nhu cầu và sở thích của bạn, đội ngũ thiết kế sẽ giúp bạn thể hiện gu thẩm mỹ đình cao cùng cá tính độc đáo của bạn theo phong cách riêng.',
+    heading: 'Làm theo nhu cầu',
+    text: 'Bạn muốn một mẫu thiết kế dành riêng cho căn nhà của mình? Hãy cho Góc Nhà biết nhu cầu, sở thích và ngân sách, chúng tôi sẽ cùng bạn chọn phương án phù hợp với phong cách riêng của bạn.',
     image: '',
     tone: 'bg-[#323139]',
   },
   {
-    title: 'Dịch vụ cao cấp',
-    heading: 'Dịch vụ uy tín với thương hiệu bền vững',
-    text: 'Với quy trình làm việc chuyên nghiệp, đội ngũ Góc Nhà sẽ tư vấn online và đến tận nơi để trao đổi ngay khi bạn liên hệ. Sau khi công trình hoàn thiện, Góc Nhà luôn sẵn sàng bảo hành và sửa chữa nếu có vấn đề phát sinh.',
+    title: 'Tư vấn tận tâm',
+    heading: 'Làm việc trực tiếp, rõ ràng',
+    text: 'Bạn trao đổi trực tiếp với người làm ra sản phẩm và được tư vấn rõ ràng về chi phí, thời gian hoàn thiện. Sau khi bàn giao, Góc Nhà hỗ trợ bảo hành và sửa chữa nếu có vấn đề phát sinh.',
     image: '',
     tone: 'bg-stone-600',
   },
@@ -36,10 +36,10 @@ const reasons = [
 
 const steps = [
   { title: 'Bước 1: Tiếp nhận thông tin và khảo sát', text: 'Góc Nhà lắng nghe nhu cầu, ngân sách và phong cách bạn yêu thích, sau đó đến khảo sát hiện trạng để đo đạc thực tế.' },
-  { title: 'Bước 2: Thiết kế ý tưởng', text: 'Đội ngũ thiết kế đề xuất bố trí mặt bằng, bảng vật liệu và màu sắc để bạn cùng chọn hướng đi cho không gian.' },
+  { title: 'Bước 2: Thiết kế ý tưởng', text: 'Góc Nhà đề xuất bố trí mặt bằng, bảng vật liệu và màu sắc để bạn cùng chọn hướng đi cho không gian.' },
   { title: 'Bước 3: Thiết kế phối cảnh 3D', text: 'Ý tưởng được dựng thành hình ảnh 3D chi tiết, giúp bạn hình dung rõ căn nhà trước khi thi công và điều chỉnh nếu cần.' },
   { title: 'Bước 4: Ký hợp đồng thi công', text: 'Hai bên thống nhất hạng mục, tiến độ và chi phí, sau đó ký hợp đồng thi công.' },
-  { title: 'Bước 5: Triển khai thi công', text: 'Đội ngũ thợ lành nghề thi công theo đúng bản vẽ đã duyệt, cập nhật tiến độ thường xuyên cho bạn.' },
+  { title: 'Bước 5: Triển khai thi công', text: 'Thợ của xưởng thi công theo đúng bản vẽ đã duyệt và cập nhật tiến độ thường xuyên cho bạn.' },
   { title: 'Bước 6: Nghiệm thu bàn giao', text: 'Cùng bạn kiểm tra công trình, hoàn thiện những chi tiết cuối cùng và bàn giao kèm chế độ bảo hành.' },
 ];
 
@@ -111,7 +111,7 @@ const Reasons = () => (
     <div className="text-center">
       <h2 id="ly-do" className="text-2xl font-normal text-stone-900">03 lý do nên chọn Góc Nhà</h2>
       <p className="mx-auto mt-4 max-w-[900px] text-[13px] font-medium text-stone-800">
-        Với kinh nghiệm hơn 27 năm trong thiết kế và hoàn thiện nội thất cùng đội ngũ thiết kế chuyên nghiệp, Góc Nhà mang đến giải pháp toàn diện trong nội thất.
+        Là xưởng nội thất gia đình hoạt động từ năm 2020, Góc Nhà làm việc trực tiếp với từng khách hàng, từ tư vấn, thiết kế đến thi công.
       </p>
     </div>
 
@@ -130,70 +130,6 @@ const Reasons = () => (
     </div>
   </section>
 );
-
-const Field = ({ label, children }) => (
-  <label className="block text-center">
-    <span className="mb-1.5 block text-xs font-bold text-stone-900">{label}</span>
-    {children}
-  </label>
-);
-
-const inputCls =
-  'block w-full border border-stone-300 bg-white px-3 py-2 text-sm text-stone-800 focus:border-stone-900 focus:outline-none';
-
-const ConsultForm = () => {
-  const [sent, setSent] = useState(false);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    // TODO: gửi dữ liệu new FormData(e.currentTarget) lên API
-    setSent(true);
-  };
-
-  return (
-    <section id="dang-ky-tu-van" className="grid bg-white md:grid-cols-[50%_22%_1fr]" aria-labelledby="tu-van">
-      <Photo src="" alt="Đèn thả trang trí" tone="bg-stone-300" className="min-h-[320px] w-full md:h-full md:min-h-[39vw]" />
-
-      <div className="flex items-start justify-center px-5 py-12 md:pt-16">
-        <div className="w-full max-w-[260px] md:max-w-[210px]">
-          <h2 id="tu-van" className="text-center text-lg font-normal uppercase text-stone-900">Đăng ký tư vấn tại nhà</h2>
-          <p className="mt-4 text-center text-[13px] font-medium leading-6 text-stone-800">
-            Hẹn gặp ngay tư vấn thiết kế nội thất tại nhà bằng cách để lại thông tin tại form dưới đây
-          </p>
-
-          {sent ? (
-            <p role="status" className="mt-8 border border-stone-300 bg-stone-50 p-4 text-center text-sm text-stone-800">
-              Góc Nhà đã nhận yêu cầu của bạn và sẽ liên hệ sớm.
-            </p>
-          ) : (
-            <form onSubmit={onSubmit} className="mt-8 grid gap-5">
-              <Field label="Tên của bạn (Yêu cầu)"><input name="name" required className={inputCls} /></Field>
-              <Field label="Điện thoại (Yêu cầu)"><input name="phone" type="tel" required className={inputCls} /></Field>
-              <Field label="Email của bạn"><input name="email" type="email" className={inputCls} /></Field>
-              <Field label="Địa chỉ"><input name="address" className={inputCls} /></Field>
-              <Field label="Yêu cầu của bạn (Yêu cầu)"><textarea name="message" required rows={4} className={inputCls} /></Field>
-              <input name="file" type="file" aria-label="Tệp đính kèm" className="w-full text-xs text-stone-700 file:mr-2 file:border file:border-stone-400 file:bg-stone-100 file:px-2 file:py-1" />
-              <button
-                type="submit"
-                className="mx-auto h-10 bg-[#232226] px-6 text-xs font-bold uppercase text-white transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#232226]"
-              >
-                Gửi yêu cầu
-              </button>
-            </form>
-          )}
-
-          <a
-            href={`tel:${PHONE}`}
-            className="mx-auto mt-8 flex h-10 w-fit items-center bg-[#323139] px-6 text-xs font-bold text-white transition-colors hover:bg-[#232226]"
-          >
-            Liên hệ: {PHONE}
-          </a>
-        </div>
-      </div>
-      <div className="hidden md:block" aria-hidden="true" />
-    </section>
-  );
-};
 
 const Process = () => (
   <section className="mx-auto max-w-[1305px] px-5 py-14" aria-labelledby="quy-trinh">
@@ -229,7 +165,6 @@ export const InteriorDesignPage = () => (
   <>
     <Hero />
     <Reasons />
-    <ConsultForm />
     <Process />
   </>
 );

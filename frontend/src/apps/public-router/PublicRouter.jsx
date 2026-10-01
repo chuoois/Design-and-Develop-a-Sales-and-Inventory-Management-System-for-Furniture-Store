@@ -2,8 +2,12 @@ import { HomeLayout } from "../../components/layouts/home-layout/HomeLayout";
 import { LoginPage } from "../../pages/public-pages/LoginPage";
 import { RegisterPage } from "../../pages/public-pages/RegisterPage";
 import { ForgotPasswordPage } from "../../pages/public-pages/ForgotpasswordPage";
-import {HomePage } from "../../pages/public-pages/HomePage";
+import { HomePage } from "../../pages/public-pages/HomePage";
 import { InteriorDesignPage } from "../../pages/public-pages/InteriorDesignPage";
+import { ProductPage } from "../../pages/public-pages/ProductPage";
+import { AboutPage, ContactPage } from "../../pages/public-pages/InfoPages";
+import { CartPage } from "../../pages/public-pages/Cartpage";
+import { ProductFavoritePage } from "../../pages/public-pages/ProductFavoritePage";
 
 export const PublicRouter = {
   path: "/",
@@ -28,6 +32,26 @@ export const PublicRouter = {
     {
       path: "interior-design",
       element: <InteriorDesignPage />,
+    },
+    {
+      path: "products",
+      element: <ProductPage />,
+    },
+    {
+      path: 'about',
+      element: <AboutPage />
+    },
+    {
+      path: 'contact',
+      element: <ContactPage />
+    },
+    {
+      path: 'my-cart',
+      element: <CartPage />
+    },
+    {
+      path: 'my-favorites',
+      element: <ProductFavoritePage />
     }
   ],
 };

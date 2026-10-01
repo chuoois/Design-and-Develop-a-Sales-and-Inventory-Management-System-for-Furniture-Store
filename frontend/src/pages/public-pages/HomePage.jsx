@@ -13,17 +13,20 @@ const bestSellers = [
   { id: 8, name: 'Bàn trà Nami', price: 9600000, image: '' },
 ];
 
-// image: điền URL ảnh thật. Để trống sẽ hiển thị khối màu giữ chỗ.
-const sections = [
-  {
-    id: 'thiet-ke-noi-that',
-    title: 'Thiết kế nội thất',
-    text: 'Với kinh nghiệm hơn 27 năm trong thiết kế và hoàn thiện nội thất cùng đội ngũ thiết kế chuyên nghiệp, Góc Nhà mang đến giải pháp toàn diện trong nội thất.',
-    href: '#thiet-ke-noi-that',
-    image: '',
-    tone: 'bg-stone-300',
-    imageSide: 'right',
-  },
+const newArrivals = [
+  { id: 11, name: 'Nến thơm Côte Noire', price: 1250000, image: '' },
+  { id: 12, name: 'Bình hoa gốm Aria', price: 3400000, image: '' },
+  { id: 13, name: 'Gối tựa Lino', price: 1850000, image: '' },
+  { id: 14, name: 'Đèn bàn Orbit', price: 6900000, image: '' },
+];
+
+const categories = [
+  { name: 'Sofa & Ghế', href: '#san-pham', tone: 'bg-stone-300', image: '' },
+  { name: 'Thảm', href: '#san-pham', tone: 'bg-amber-100', image: '' },
+  { name: 'Đèn', href: '#san-pham', tone: 'bg-stone-200', image: '' },
+  { name: 'Gương', href: '#san-pham', tone: 'bg-orange-100', image: '' },
+  { name: 'Bàn', href: '#san-pham', tone: 'bg-stone-300', image: '' },
+  { name: 'Hoa & Hương thơm', href: '#san-pham', tone: 'bg-amber-100', image: '' },
 ];
 
 const heroSlides = [
@@ -55,13 +58,17 @@ const Photo = ({ src, alt, tone, className = '' }) =>
     <div className={`${tone ?? 'bg-stone-200'} ${className}`} role="img" aria-label={alt} />
   );
 
-const PillLink = ({ href, children }) => (
-  <a
-    href={href}
-    className="inline-flex h-7 items-center border border-[#323139] px-4 text-[11px] font-bold text-[#323139] transition-colors hover:bg-[#323139] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#323139]"
-  >
-    {children}
-  </a>
+const SectionHeading = ({ id, children, href = '#san-pham', linkText = 'xem tất cả' }) => (
+  <div className="flex items-baseline gap-5 border-b border-stone-200 pb-2">
+    <h2 id={id} className="border-b border-orange-700 pb-2 text-[15px] font-medium uppercase text-stone-900">
+      {children}
+    </h2>
+    {href && (
+      <a href={href} className="inline-flex items-center gap-1 text-[11px] font-bold text-stone-900 hover:text-orange-700">
+        {linkText} <ChevronRight className="size-3" aria-hidden="true" />
+      </a>
+    )}
+  </div>
 );
 
 const ProductCard = ({ product, liked, onToggle }) => (
@@ -173,28 +180,40 @@ const Hero = () => {
   );
 };
 
-const BestSellers = () => {
+/* ---------- Mới: danh mục ---------- */
+const Categories = () => (
+  <section aria-labelledby="danh-muc">
+    <SectionHeading id="danh-muc" href={null}>Mua theo danh mục</SectionHeading>
+    <ul className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+      {categories.map((c) => (
+        <li key={c.name}>
+          <a href={c.href} className="group relative block overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900">
+            <Photo src={c.image} alt={c.name} tone={c.tone} className="aspect-[3/4] w-full transition-transform duration-500 group-hover:scale-[1.04]" />
+            <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent px-3 pb-3 pt-10 text-[13px] font-bold text-white">
+              {c.name}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+);
+
+/* ---------- Danh sách sản phẩm dùng lại cho nhiều mục ---------- */
+const ProductSection = ({ id, anchor, title, products, cols = 'md:grid-cols-3 xl:grid-cols-4' }) => {
   const [liked, setLiked] = useState(() => new Set());
-  const toggle = (id) =>
+  const toggle = (pid) =>
     setLiked((prev) => {
       const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
+      next.has(pid) ? next.delete(pid) : next.add(pid);
       return next;
     });
 
   return (
-    <section aria-labelledby="ban-chay" id="san-pham">
-      <div className="flex items-baseline gap-5 border-b border-stone-200 pb-2">
-        <h2 id="ban-chay" className="border-b border-orange-700 pb-2 text-[15px] font-medium uppercase text-stone-900">
-          Bán chạy nhất
-        </h2>
-        <a href="#san-pham" className="inline-flex items-center gap-1 text-[11px] font-bold text-stone-900 hover:text-orange-700">
-          xem tất cả <ChevronRight className="size-3" aria-hidden="true" />
-        </a>
-      </div>
-
-      <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3 xl:grid-cols-4">
-        {bestSellers.slice(0, 8).map((p) => (
+    <section aria-labelledby={id} id={anchor}>
+      <SectionHeading id={id}>{title}</SectionHeading>
+      <div className={`mt-8 grid grid-cols-2 gap-x-6 gap-y-10 ${cols}`}>
+        {products.map((p) => (
           <ProductCard key={p.id} product={p} liked={liked.has(p.id)} onToggle={toggle} />
         ))}
       </div>
@@ -202,40 +221,38 @@ const BestSellers = () => {
   );
 };
 
-const SplitSection = ({ title, text, href, image, tone, imageSide, portrait, id }) => {
-  const imageRight = imageSide === 'right';
-  return (
-    <section id={id} className="grid min-h-[420px] bg-stone-100 md:min-h-[560px] md:grid-cols-2" aria-labelledby={`${id}-title`}>
-      <Photo
-        src={image}
-        alt={title}
-        tone={tone}
-        className={`min-h-[280px] w-full md:h-full ${imageRight ? 'md:order-2' : 'md:order-1'}`}
-      />
-      <div
-        className={`flex items-center px-8 py-12 md:px-[6vw] ${imageRight ? 'md:order-1 md:justify-end' : 'md:order-2 md:justify-center'}`}
-      >
-        <div className={portrait ? 'max-w-[430px]' : 'max-w-[250px]'}>
-          {portrait && <Photo src="" alt="Sofa da" tone="bg-stone-300" className="mb-8 aspect-[4/5] w-full" />}
-          <h2 id={`${id}-title`} className="text-[15px] font-bold text-stone-900">{title}</h2>
-          <p className="mb-6 mt-4 text-[11px] font-medium leading-[17px] text-stone-900">{text}</p>
-          <PillLink href={href}>Xem thêm</PillLink>
-        </div>
+/* ---------- Mới: banner xen giữa (ảnh + chữ chia đôi) ---------- */
+const Story = () => (
+  <section aria-labelledby="cau-chuyen" className="grid overflow-hidden bg-stone-100 md:grid-cols-2">
+    <Photo src="" alt="Không gian phòng khách tại Góc Nhà" tone="bg-stone-300" className="min-h-[280px] w-full md:min-h-[420px]" />
+    <div className="flex flex-col justify-center px-6 py-10 md:px-14">
+      <h2 id="cau-chuyen" className="text-3xl font-light italic tracking-tight text-stone-900 md:text-4xl">
+        Mỗi góc nhà đều có câu chuyện riêng
+      </h2>
+      <p className="mt-5 max-w-[440px] text-[14px] leading-relaxed text-stone-700">
+        Góc Nhà chọn từng món đồ nội thất và trang trí từ các nhà thiết kế, xưởng thủ công mà chúng tôi tin tưởng. Khám phá từng bộ sưu tập để tìm món đồ hợp với căn nhà của bạn.
+      </p>
+      <div className="mt-7">
+        <a
+          href="#san-pham"
+          className="inline-flex h-9 items-center border border-[#323139] px-5 text-xs font-bold text-[#323139] transition-colors hover:bg-[#323139] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#323139]"
+        >
+          Khám phá sản phẩm
+        </a>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 /* ---------- Trang Home (đặt làm route index trong HomeLayout) ---------- */
 export const HomePage = () => (
   <>
     <Hero />
-    <div className="mx-auto max-w-[1500px] px-5 py-10 lg:px-[4vw]">
-      <BestSellers />
+    <div className="mx-auto max-w-[1500px] space-y-16 px-5 py-12 lg:space-y-20 lg:px-[4vw]">
+      <Categories />
+      <ProductSection id="ban-chay" anchor="san-pham" title="Bán chạy nhất" products={bestSellers} />
+      <Story />
+      <ProductSection id="hang-moi" title="Hàng mới về" products={newArrivals} cols="md:grid-cols-4" />
     </div>
-
-    {sections.map((s) => (
-      <SplitSection key={s.id} {...s} />
-    ))}
   </>
 );
